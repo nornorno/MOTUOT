@@ -1,3 +1,4 @@
+'''
 from pyrogram import Client, filters
 from pyrogram.types import Message
 import requests 
@@ -105,7 +106,7 @@ async def untard(_: Client, message: Message):
 
             return
         else: await message.reply("- يجب ان تكون ادمن على الاقل لإستخدام هذا الامر.", reply_to_message_id=message.message_id)
-
+         '''
 
 
     

@@ -10,18 +10,18 @@ import config
 )
 async def maker(client: Client, message: Message):
     await message.reply_photo(
-        photo="https://te.legra.ph/file/7994175c9bbea45fc7377.jpg",
-        caption="• Dev Bot ↦ ميوزك العالم \n ━━━━━━━━━━━━ \n • Dev ↦ Cr SoUrce:nour . \n • Bio ↦- 𓏺 Whoever humbles #himself to god will be #exalted 𓏺",
+        photo="https://graph.org/file/cb20d47765beed1677341.jpg",
+        caption="• Dev Bot ↦ ميوزك العالم \n ━━━━━━━━━━━━ \n • Dev ↦ Cr SoUrce:fox . \n • Bio ↦- 𓏺 Whoever humbles #himself to god will be #exalted 𓏺",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "مطورالسورس", url=f"https://t.me/nor_o"
+                        "مطورالسورس", url=f"https://t.me/F_o_x_5"
                     ),
                 ],
                 [
                     InlineKeyboardButton(
-                        "Updates", url=f"https://t.me/vzo_a"
+                        "Updates", url=f"https://t.me/F_o_x_5"
                     ),
                 ],
             ]

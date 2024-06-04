@@ -9,7 +9,7 @@ from config import *
 bot_name = {}
 botname = {}
 
-name = "نور"
+name = "فوكس"
 
 @app.on_message(filters.command(["تعيين اسم البوت"])& filters.private & SUDOERS, group=39)
 async def set_bot_name(client, message):

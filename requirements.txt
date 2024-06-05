@@ -16,6 +16,7 @@ hachoir
 heroku3
 httpx[http2]
 httpx==0.25.2
+yt-dlp==2024.05.27
 lyricsgenius
 motor
 numpy
@@ -38,12 +39,11 @@ spotipy
 telegraph
 tgcrypto
 unidecode
-yt-dlp==2023.12.30
 youtube-search
 youtube-search-python
 wget
 kvsqlite 
-yt-dlp
+
 
 
 

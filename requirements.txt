@@ -44,5 +44,6 @@ youtube-search-python
 wget
 kvsqlite 
 yt-dlp
-pip install --upgrade pip
+python3 -m pip install --upgrade pip
+
 

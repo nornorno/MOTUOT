@@ -5,14 +5,14 @@ from AarohiX import app
 
 @app.on_message(filters.incoming & filters.private, group=-1)
 async def must_join_channel(bot: Client, msg: Message):
-    if not "https://t.me/vzo_a":  # Not compulsory
+    if not "https://t.me/Jo_k_5":  # Not compulsory
         return
     try:
         try:
-            await bot.get_chat_member("vzo_a", msg.from_user.id)
+            await bot.get_chat_member("Jo_k_5", msg.from_user.id)
         except UserNotParticipant:
-            if "https://t.me/vzo_a".isalpha():
-                link = "https://t.me/vzo_a"
+            if "https://t.me/Jo_k_5".isalpha():
+                link = "https://t.me/Jo_k_5"
             else:
                 chat_info = await bot.get_chat("WX_PM")
                 link = chat_info.invite_link
@@ -28,5 +28,5 @@ async def must_join_channel(bot: Client, msg: Message):
             except ChatWriteForbidden:
                 pass
     except ChatAdminRequired:
-        print(f"I m not admin in the MUST_JOIN chat @vzo_a !")
+        print(f"I m not admin in the MUST_JOIN chat @Jo_k_5 !")
       

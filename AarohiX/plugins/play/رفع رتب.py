@@ -79,12 +79,16 @@ async def tnzelnmla(client:Client, message:Message):
 
 @app.on_message(command("المميزين"))
 async def nml(client:Client, message:Message):
+  # تصحيح: طباعة محتويات klb
+  print(f"محتويات klb: {klb}")
+
   kq = ""
   for n in klb:
       kq += n + "\n"
+  # تصحيح: التحقق من محتوى kq قبل إرسال الرسالة
+  print(f"قائمة المميزين التي سيتم إرسالها: \n{kq}")
   await message.reply_text(f"**قائمة المميزين  \n\n{kq}**")
 
-zoj = []
 
 
 @app.on_message(command("رفع ادمن"))

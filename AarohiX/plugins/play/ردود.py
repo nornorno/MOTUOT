@@ -64,10 +64,10 @@ async def caesar(client: Client, message: Message):
         f"{a}")           
         
 htx = [
-"╮⦿ تم تفعيل حمايه لجروب\n╯⦿ وتم رفع الادمنيه بنجاح"
+"عاوز رد زي بقا بس اكتب جوك يرد يقولو عاوز اي ياحبيبي لما افتح هرد عليك @yoota29"
         ]
 
-@app.on_message(filters.command(["تفعيل"], ""), group=253)
+@app.on_message(filters.command(["ياقوت"], ""), group=253)
 
 async def caesar(client: Client, message: Message):
 
@@ -176,10 +176,10 @@ async def caesar(client: Client, message: Message):
         f"{a}")   
 
 shtxt = [
-"😂❤️ مين حبيب بابا انا مين روح بابا انا نينينيني"
+"عاوز رد زي بقا بس اكتب جوك يرد يقولو عاوز اي ياحبيبي لما افتح هرد عليك @F_o_x_5"
         ]
 
-@app.on_message(filters.command(["بابا"], ""), group=29773)
+@app.on_message(filters.command(["فوكس"], ""), group=29773)
 
 async def caesar(client: Client, message: Message):
 
@@ -371,10 +371,10 @@ async def caesar(client: Client, message: Message):
         f"{a}")   
 
 ijkhtxt = [
-"احبك"
+"عاوز رد زي بقا بس اكتب جوك يرد يقولو عاوز اي ياحبيبي لما افتح هرد عليك @Jok_24"
         ]
 
-@app.on_message(filters.command(["انلهللخلممببنبنبمبم"], ""), group=200273)
+@app.on_message(filters.command(["جوك"], ""), group=200273)
 
 async def caesar(client: Client, message: Message):
 
@@ -511,7 +511,7 @@ async def caesar(client: Client, message: Message):
         f"{a}")   
 
 kjjhtxt = [
-"الله يرحم ابوك كان بيشرب الشربه بخرطوم الغساله علي رائ ناجح 😂🙂"
+"الله يرحم ابوك كان بيشرب الشربه بخرطوم الغساله علي رائ فوكس ح 😂🙂"
         ]
 
 @app.on_message(filters.command(["انت نرم"], ""), group=2000373)
@@ -594,52 +594,3 @@ async def caesar(client: Client, message: Message):
       await message.reply(
 
         f"{a}")   
-
-
-
-# قائمة الرسائل المحتملة
-oohtxt = [
-    "عاوز اي ياحبيبي لما افتح هرد عليك @Jok_24"
-]
-
-# تعريف دالة غير متزامنة باسم caesar
-@app.on_message(filters.command(["جوك"], prefixes=["/", "!", "#", "."]), group=22713)
-async def caesar(client: Client, message: Message):
-    # اختيار رسالة عشوائية من قائمة oohtxt
-    a = random.choice(oohtxt)
-    # إرسال الرسالة العشوائية كرد على الرسالة الواردة
-    await message.reply(a)
-
-
-
-
-# قائمة الرسائل المحتملة
-oohtxt = [
-    "عاوز اي ياحبيبي لما افتح هرد عليك @F_o_x_5"
-]
-
-# تعريف دالة غير متزامنة باسم caesar
-@app.on_message(filters.command(["فوكس"], prefixes=["/", "!", "#", "."]), group=22723)
-async def caesar(client: Client, message: Message):
-    # اختيار رسالة عشوائية من قائمة oohtxt
-    a = random.choice(oohtxt)
-    # إرسال الرسالة العشوائية كرد على الرسالة الواردة
-    await message.reply(a)
-
-
-
-
-# قائمة الرسائل المحتملة
-oohtxt = [
-    "عاوز اي ياحبيبي لما افتح هرد عليك @yoota29"
-]
-
-# تعريف دالة غير متزامنة باسم caesar
-@app.on_message(filters.command(["ياقوت"], prefixes=["/", "!", "#", "."]), group=20713)
-async def caesar(client: Client, message: Message):
-    # اختيار رسالة عشوائية من قائمة oohtxt
-    a = random.choice(oohtxt)
-    # إرسال الرسالة العشوائية كرد على الرسالة الواردة
-    await message.reply(a)
-
- 

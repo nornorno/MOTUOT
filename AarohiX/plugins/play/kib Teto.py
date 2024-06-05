@@ -80,7 +80,7 @@ def reply_to_HEY(Client, message):
         reply_markup=InlineKeyboardMarkup(
             [
             [
-                InlineKeyboardButton("ᯓ سورس ميوزك نور الحاكم", url=f"https://t.me/vzo_a"),
+                InlineKeyboardButton("ᯓ سورس ميوزك فوكس ", url=f"https://t.me/Jo_k_2"),
             ]
          ]
      )

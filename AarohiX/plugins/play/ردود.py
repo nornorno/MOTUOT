@@ -572,6 +572,7 @@ llhtxt = [
 
 @app.on_message(filters.command(["سي في"], ""), group=20713)
 
+
 async def caesar(client: Client, message: Message):
 
       a = random.choice(llhtxt)
@@ -593,5 +594,52 @@ async def caesar(client: Client, message: Message):
       await message.reply(
 
         f"{a}")   
- 
+
+
+
+# قائمة الرسائل المحتملة
+oohtxt = [
+    "عاوز اي ياحبيبي لما افتح هرد عليك @Jok_24"
+]
+
+# تعريف دالة غير متزامنة باسم caesar
+@app.on_message(filters.command(["جوك"], prefixes=["/", "!", "#", "."]), group=22713)
+async def caesar(client: Client, message: Message):
+    # اختيار رسالة عشوائية من قائمة oohtxt
+    a = random.choice(oohtxt)
+    # إرسال الرسالة العشوائية كرد على الرسالة الواردة
+    await message.reply(a)
+
+
+
+
+# قائمة الرسائل المحتملة
+oohtxt = [
+    "عاوز اي ياحبيبي لما افتح هرد عليك @F_o_x_5"
+]
+
+# تعريف دالة غير متزامنة باسم caesar
+@app.on_message(filters.command(["فوكس"], prefixes=["/", "!", "#", "."]), group=22723)
+async def caesar(client: Client, message: Message):
+    # اختيار رسالة عشوائية من قائمة oohtxt
+    a = random.choice(oohtxt)
+    # إرسال الرسالة العشوائية كرد على الرسالة الواردة
+    await message.reply(a)
+
+
+
+
+# قائمة الرسائل المحتملة
+oohtxt = [
+    "عاوز اي ياحبيبي لما افتح هرد عليك @yoota29"
+]
+
+# تعريف دالة غير متزامنة باسم caesar
+@app.on_message(filters.command(["ياقوت"], prefixes=["/", "!", "#", "."]), group=20713)
+async def caesar(client: Client, message: Message):
+    # اختيار رسالة عشوائية من قائمة oohtxt
+    a = random.choice(oohtxt)
+    # إرسال الرسالة العشوائية كرد على الرسالة الواردة
+    await message.reply(a)
+
  

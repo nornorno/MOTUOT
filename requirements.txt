@@ -44,6 +44,6 @@ youtube-search-python
 wget
 kvsqlite 
 yt-dlp
-pip install --upgrade pip 
-pip3 install --no-cache-dir -U -r
+pip -upgrade pip 
+pip3 -no-cache-dir -U -r
 

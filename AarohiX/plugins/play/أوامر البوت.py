@@ -64,7 +64,7 @@ async def mmmezat(client, message):
 │᚜⦿ هيدرات
 │᚜⦿ اذكار 
 ╯⦿  بث مباشر للقنوات 
-[سورس ميوزك العالم](https://t.me/vzo_a) """,
+[سورس ميوزك العالم](https://t.me/Jo_k_2) """,
         reply_markup=InlineKeyboardMarkup(
             [
                 [

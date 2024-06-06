@@ -1,3 +1,4 @@
+'''
 import json
 import random
 from typing import List, Union
@@ -983,7 +984,7 @@ def top_money(client, message):
         response += f"@{account_username}: {account_balance} دولار\n"
     
     client.send_message(message.chat.id, response)
-
+       ''''
 
 
 

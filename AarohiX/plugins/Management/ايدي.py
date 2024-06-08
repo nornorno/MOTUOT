@@ -8,9 +8,7 @@ from config import START_IMG_URL
 from AarohiX import app
 from random import choice, randint
 
-@app.on_message(
-    command(["ايدي", "id", "ا"]) 
-    filters.group
+@app.on_message(filters.command(["ايدي", "id", "ا"], prefixes="/")
 )
 async def iddd(client, message):
     if message.chat.id in iddof:

@@ -6,11 +6,11 @@ from strings import get_command
 from strings.filters import command
 from  AarohiX  import app
 from config import OWNER_ID
-from AarohiX.misc import SUDOERS
+from AarohiX. plugins import app
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, ReplyKeyboardMarkup
 from pyrogram.types import (InlineKeyboardButton,CallbackQuery,InlineKeyboardMarkup, Message)
 from AarohiX import (Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app)
-from AarohiX.plugins import SUDOERS
+from AarohiX.plugins import app
 
 @app.on_message(command(["ابراج","ابراج"]))
 async def abrag(c: Client, m: Message):

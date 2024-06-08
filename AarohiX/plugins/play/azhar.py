@@ -41,10 +41,10 @@ txt = [
         ]
 
 
-        
 
 
-@app.on_message(command(["اذكار","الاذكار","❬ اذكار ❭"]))
+
+@app.on_message(filters.command(["اذكار","الاذكار","❬ اذكار ❭"]))
 
 async def akar(client: Client, message: Message):
 

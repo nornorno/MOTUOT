@@ -1,7 +1,7 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-@app.on_message(filters.command('id'))
+@app.on_message(filters.command('message_id'))
 async def getid(client: Client, message: Message):
     chat = message.chat
     your_id = message.from_user.id

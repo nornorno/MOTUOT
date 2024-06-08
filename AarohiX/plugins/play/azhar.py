@@ -2,6 +2,8 @@ import asyncio
 import random
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
+from pyrogram import Client
+
 
 
 
@@ -44,9 +46,11 @@ txt = [
 
 
 
-@app.on_message(filters.command(["اذكار","الاذكار","❬ اذكار ❭"]))
+@app.on_message(filters.command(["اذكار", "الاذكار", "❬ اذكار ❭"], prefixes="/"))
 
-async def akar(client: Client, message: Message):
+async def send_azkar(client: Client, message: Message):
+    # الكود الخاص بإرسال الأذكار هنا
+
 
       a = random.choice(txt)
 

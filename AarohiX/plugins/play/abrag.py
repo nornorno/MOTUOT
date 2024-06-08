@@ -4,13 +4,13 @@ from pyrogram import Client, filters
 from pyrogram import filters
 from strings import get_command
 from strings.filters import command
-from AnonX import app
+from  AarohiX  import app
 from config import OWNER_ID
-from AnonX.misc import SUDOERS
+from AarohiX.misc import SUDOERS
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, ReplyKeyboardMarkup
 from pyrogram.types import (InlineKeyboardButton,CallbackQuery,InlineKeyboardMarkup, Message)
-from AnonX import (Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app)
-from AnonX.misc import SUDOERS
+from AarohiX import (Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app)
+from AarohiX.plugins import SUDOERS
 
 @app.on_message(command(["ابراج","ابراج"]))
 async def abrag(c: Client, m: Message):

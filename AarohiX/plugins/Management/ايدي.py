@@ -2,63 +2,36 @@ import asyncio
 import os
 import time
 import requests
-from config import START_IMG_URL
-from pyrogram import filters
-import random
-from pyrogram import Client
+from pyrogram import filters, Client
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup
-
+from config import START_IMG_URL
 from AarohiX import app
 from random import choice, randint
 
-@app.on_message(filters.command(["ايدي"], ""))
-async def madison(client: Client, message: Message):
-    usr = await client.get_users(message.from_user.id)
+@app.on_message(
+    command(["ايدي", "id", "ا"]) &
+    filters.group
+)
+async def iddd(client, message):
+    if message.chat.id in iddof:
+        return
+    usr = await client.get_chat(message.from_user.id)
     name = usr.first_name
-    user_id = usr.id
-    username = usr.username
-    bio = usr.bio
-    group = await client.get_chat(message.chat.id)
-    
-    # تحقق من وجود صورة للمستخدم
-    user_photo = None
-    async for photo in client.get_chat_photos(message.from_user.id, limit=1):
-        user_photo = photo.file_id
-    
-    # إذا كانت هناك صورة، استخدمها في الرد
-    if user_photo:
+    if hasattr(usr, 'photo') and usr.photo:
+        photo = await app.download_media(usr.photo.big_file_id)
         await message.reply_photo(
-            user_photo,
-            caption=f"""╭⦿ᚐɴᴧᴍᴇ : {username}
-╰⦿ᚐᴜsᴇꝛ : {name}
-╭⦿ᚐɪᴅ :  {user_id}
-╰⦿ᚐʙɪᴏ : {bio}
-⦿ᚐᴄʜᴧᴛ : {group.title}
-╰⦿ᚐᴄʜᴧᴛ ɪᴅ : {group.id}""",
+            photo,
+            caption=f"""🤡 ¦𝙽𝙰𝙼𝙴 :{message.from_user.mention}\n🎯 ¦𝚄𝚂𝙴𝚁 :@{message.from_user.username}\n🎃 ¦𝙸𝙳 :`{message.from_user.id}`\n💌 ¦𝙱𝙸𝙾 :{usr.bio}\n✨ ¦𝙲𝙷𝙰𝚃: {message.chat.title}\n♻️ ¦𝙸𝙳.𝙶𝚁𝙾𝚄𝙿 :`{message.chat.id}`""",
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
                         InlineKeyboardButton(
-                            name, url=f"https://t.me/{username}")
+                            name, url=f"https://t.me/{message.from_user.username}")
                     ],
                 ]
             ),
         )
     else:
-        # إذا لم يكن هناك صورة، استخدم رسالة نصية
-        await message.reply_text(
-            f"""╭⦿ᚐɴᴧᴍᴇ : {username}
-╰⦿ᚐᴜsᴇꝛ : {name}
-╭⦿ᚐɪᴅ :  {user_id}
-╰⦿ᚐʙɪᴏ : {bio}
-⦿ᚐᴄʜᴧᴛ : {group.title}
-╰⦿ᚐᴄʜᴧᴛ ɪᴅ : {group.id}""",
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(
-                            name, url=f"https://t.me/{username}")
-                    ],
-                ]
-            ),
-        )
+        await message.reply_text("المستخدم ليس لديه صورة شخصية.")
+
+# تأكد من تعريف 'iddof' في مكان ما في الكود أو إزالة الشرط إذا لم تحتاجه

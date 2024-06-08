@@ -2,7 +2,7 @@ import asyncio
 
 import random
 
-from AnonX import app
+from AarohiX import app
 
 from pyrogram.types import (InlineKeyboardButton,
 

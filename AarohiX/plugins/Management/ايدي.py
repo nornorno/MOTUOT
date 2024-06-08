@@ -9,7 +9,7 @@ from AarohiX import app
 from random import choice, randint
 
 @app.on_message(
-    command(["ايدي", "id", "ا"]) &
+    command(["ايدي", "id", "ا"]) 
     filters.group
 )
 async def iddd(client, message):

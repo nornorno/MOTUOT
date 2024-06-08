@@ -26,7 +26,7 @@ async def iddlock(client, message):
 @app.on_message(
     command(["فتح الايدي", "تفعيل الايدي"]) &
     filters.group &
-    ~filters.edited
+    
 )
 async def iddopen(client, message):
     get = await app.get_chat_member(message.chat.id, message.from_user.id)

@@ -1,6 +1,6 @@
 import asyncio
 from pyrogram import Client, filters
-from AnonX import app
+from AarohiX import app
 import random
 from strings.filters import command
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton

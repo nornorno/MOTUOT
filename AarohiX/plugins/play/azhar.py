@@ -58,3 +58,4 @@ async def send_azkar(client: Client, message: Message):
       await message.reply(
 
         f"{a}")
+      ''''

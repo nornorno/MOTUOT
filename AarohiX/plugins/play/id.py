@@ -129,5 +129,5 @@ async def idjjdd(client, message):
             ]
         ),
     )
-       
+  '''
 

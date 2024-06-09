@@ -44,7 +44,7 @@ async def unmute_member(client: Client, message: Message):
     if not len(muted): return await message.reply_text("- لا يوجد مكتومين لحذفهم!")
     muted.clear()
     await message.reply_text(f"تم مسح المكتومين \n│ \n : {message.reply_to_message.from_user.mention}\n\n بنجاح ")
-.
+
 
 # عرض المكتومين
 @app.on_message(filters.command("المكتومين"))

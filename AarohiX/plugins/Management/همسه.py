@@ -1,7 +1,7 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 
-app = Client("7107627916:AAExR51c8AKgmxvtpgj00kb2O9S3FwhaAqc")
+app = Client("my_bot")
 
 # متغير لتتبع حالة الرسالة
 state = {}

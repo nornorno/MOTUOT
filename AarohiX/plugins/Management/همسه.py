@@ -8,10 +8,6 @@ app = Client("my_bot")
 state = {}
 
 # الدالة التي تتعامل مع الأوامر
-   from pyrogram import Client, filters
-
-app = Client("my_bot")
-
 @app.on_message(filters.private & filters.text & ~filters.command("start"))
 async def receive_whisper(client, message):
     # ... باقي الكود ...

@@ -1,11 +1,32 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 
+# تعريف البوت باستخدام معرف البوت الخاص بك
 app = Client("my_bot")
 
 # متغير لتتبع حالة الرسالة
 state = {}
 
+# الدالة التي تتعامل مع الأوامر
+@app.on_message(filters.private & filters.text & ~filters.command)
+async def receive_whisper(client, message: Message):
+
+    # إنشاء زر لإرسال الهمسة
+    whisper_button = InlineKeyboardButton("اضغط لإرسال الهمسة", callback_data="whisper")
+    # إنشاء تخطيط الزر
+    whisper_markup = InlineKeyboardMarkup([[whisper_button]])
+    # إرسال رسالة مع الزر
+    await message.reply("اضغط على الزر أدناه لإرسال همسة:", reply_markup=whisper_markup)
+
+# الدالة التي تتعامل مع الهمسات
+@app.on_callback_query(filters.regex("whisper"))
+async def whisper_callback(client, callback_query: CallbackQuery):
+    # إرسال رسالة للمستخدم لكتابة الهمسة
+    await callback_query.message.reply("ارسل الهمسة الآن:")
+    # تعيين حالة المستخدم لتتبع الهمسة
+    state[callback_query.from_user.id] = 'waiting_for_whisper'
+
+# الدالة التي تتعامل مع استقبال الهمسة
 @app.on_message(filters.private & filters.text & ~filters.command)
 async def receive_whisper(client, message: Message):
     user_id = message.from_user.id
@@ -28,7 +49,8 @@ async def receive_whisper(client, message: Message):
 async def confirm_whisper(client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
     if user_id in state and state[user_id] == 'waiting_for_confirmation':
-        # ... إرسال الهمسة إلى المستلم ...
+        # إرسال الهمسة إلى المستلم
+        # ... كود إرسال الهمسة ...
         # إعادة تعيين حالة المستخدم
         state[user_id] = None
         await callback_query.message.reply("تم إرسال الهمسة بنجاح.")

@@ -1,5 +1,8 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
+from pyrogram import Client
+
+app = Client("my_account")
 
 # تعريف الرتب
 RANKS = {

@@ -8,8 +8,13 @@ app = Client("my_bot")
 state = {}
 
 # الدالة التي تتعامل مع الأوامر
-@app.on_message(filters.private & filters.text & ~filters.command)
-async def receive_whisper(client, message: Message):
+   from pyrogram import Client, filters
+
+app = Client("my_bot")
+
+@app.on_message(filters.private & filters.text & ~filters.command("start"))
+async def receive_whisper(client, message):
+    # ... باقي الكود ...
 
     # إنشاء زر لإرسال الهمسة
     whisper_button = InlineKeyboardButton("اضغط لإرسال الهمسة", callback_data="whisper")

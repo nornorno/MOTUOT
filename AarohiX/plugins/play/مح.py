@@ -98,7 +98,7 @@ async def maker(client: Client, message: Message):
 
 
 
-app.on_message(filters.command(["سامحني"], prefixes="/"))
+@app.on_message(filters.command(["سامحني"], prefixes="/"))
 async def maker(client: Client, message: Message):
     try:
         # التحقق من وجود رسالة للرد عليها
@@ -130,7 +130,7 @@ async def maker(client: Client, message: Message):
 
 
 
-app.on_message(filters.command(["خاصم"], prefixes="/"))
+@app.on_message(filters.command(["خاصم"], prefixes="/"))
 async def maker(client: Client, message: Message):
     try:
         # التحقق من وجود رسالة للرد عليها

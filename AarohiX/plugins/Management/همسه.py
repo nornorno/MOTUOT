@@ -1,35 +1,62 @@
 from pyrogram import Client, filters
-from pyrogram.types import Message
-from AarohiX import app
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 
-# قاعدة البيانات المؤقتة لتخزين الهمسات
-whispers = {}
+# تعريف البوت باستخدام معرف البوت الخاص بك
+app = Client("7107627916:AAExR51c8AKgmxvtpgj00kb2O9S3FwhaAqc")
 
-@app.on_message(filters.command("همسه") & filters.group)
-async def whisper_command(client: Client, message: Message):
-    # تقسيم الرسالة إلى أجزاء
-    parts = message.text.split(maxsplit=2)
-    if len(parts) == 3:
-        target_username = parts[1].lstrip('@')
-        whisper_text = parts[2]
-        
-        # تخزين الهمسة في قاعدة البيانات المؤقتة
-        whispers[target_username] = whisper_text
-        
-        # إخبار المستخدم أن الهمسة تم تخزينها
-        await message.reply_text(f"همستك تم تخزينها وستُرسل إلى @{target_username}.")
-    else:
-        await message.reply_text("الرجاء استخدام الأمر بالصيغة: /همسه @username الرسالة")
+# متغير لتتبع حالة الرسالة
+state = {}
 
-@app.on_message(filters.command("استلم_الهمسه") & filters.private)
-async def receive_whisper(client: Client, message: Message):
-    # التحقق من وجود همسة للمستخدم
-    if message.from_user.username in whispers:
-        # إرسال الهمسة إلى المستخدم
-        await message.reply_text(f"لديك همسة: {whispers[message.from_user.username]}")
-        # حذف الهمسة بعد الإرسال
-        del whispers[message.from_user.username]
-    else:
-        await message.reply_text("ليس لديك أي همسات.")
+# الدالة التي تتعامل مع الأوامر
+@app.on_message(filters.command("start"))
+async def start(client, message: Message):
+    # إنشاء زر لإرسال الهمسة
+    whisper_button = InlineKeyboardButton("اضغط لإرسال الهمسة", callback_data="whisper")
+    # إنشاء تخطيط الزر
+    whisper_markup = InlineKeyboardMarkup([[whisper_button]])
+    # إرسال رسالة مع الزر
+    await message.reply("اضغط على الزر أدناه لإرسال همسة:", reply_markup=whisper_markup)
 
-# تذكر إضافة الأمر /استلم_الهمسه إلى البوت لاستلام الهمسات.
+# الدالة التي تتعامل مع الهمسات
+@app.on_callback_query(filters.regex("whisper"))
+async def whisper_callback(client, callback_query: CallbackQuery):
+    # إرسال رسالة للمستخدم لكتابة الهمسة
+    await callback_query.message.reply("ارسل الهمسة الآن:")
+    # تعيين حالة المستخدم لتتبع الهمسة
+    state[callback_query.from_user.id] = 'waiting_for_whisper'
+
+# الدالة التي تتعامل مع استقبال الهمسة
+@app.on_message(filters.private & filters.text & ~filters.command)
+async def receive_whisper(client, message: Message):
+    # التحقق من حالة الرسالة
+    if state.get(message.from_user.id) == 'waiting_for_whisper':
+        # تخزين الهمسة
+        whisper = message.text
+        # طلب التأكيد من المستخدم
+        confirm_button = InlineKeyboardButton("تأكيد", callback_data="confirm_whisper")
+        cancel_button = InlineKeyboardButton("إلغاء", callback_data="cancel_whisper")
+        reply_markup = InlineKeyboardMarkup([[confirm_button, cancel_button]])
+        await message.reply("هل أنت متأكد من أنك تريد إرسال الهمسة؟", reply_markup=reply_markup)
+        # تحديث حالة الرسالة
+        state[message.from_user.id] = 'waiting_for_confirmation'
+
+# الدالة التي تتعامل مع تأكيد الهمسة
+@app.on_callback_query(filters.regex("confirm_whisper"))
+async def confirm_whisper(client, callback_query: CallbackQuery):
+    # التحقق من حالة الرسالة
+    if state.get(callback_query.from_user.id) == 'waiting_for_confirmation':
+        # إرسال الهمسة إلى المستلم
+        # ... كود إرسال الهمسة ...
+        # إعادة تعيين حالة المستخدم
+        state[callback_query.from_user.id] = None
+        await callback_query.message.reply("تم إرسال الهمسة بنجاح.")
+
+# الدالة التي تتعامل مع إلغاء الهمسة
+@app.on_callback_query(filters.regex("cancel_whisper"))
+async def cancel_whisper(client, callback_query: CallbackQuery):
+    # إلغاء الهمسة
+    state[callback_query.from_user.id] = None
+    await callback_query.message.reply("تم إلغاء الهمسة.")
+
+# بدء تشغيل البوت
+app.run()

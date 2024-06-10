@@ -1,68 +1,50 @@
 from pyrogram import Client, filters
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, InlineQueryResultArticle, InputTextMessageContent
 
-# تعريف البوت باستخدام معرف البوت الخاص بك
-app = Client("my_bot")
+app = Client("7107627916:AAExR51c8AKgmxvtpgj00kb2O9S3FwhaAqc")
 
-# متغير لتتبع حالة الرسالة
-state = {}
-
-# الدالة التي تتعامل مع الأوامر
-@app.on_message(filters.private & filters.text & ~filters.command("start"))
-async def receive_whisper(client, message):
-    # ... باقي الكود ...
-
-    # إنشاء زر لإرسال الهمسة
-    whisper_button = InlineKeyboardButton("اضغط لإرسال الهمسة", callback_data="whisper")
-    # إنشاء تخطيط الزر
-    whisper_markup = InlineKeyboardMarkup([[whisper_button]])
-    # إرسال رسالة مع الزر
-    await message.reply("اضغط على الزر أدناه لإرسال همسة:", reply_markup=whisper_markup)
-
-# الدالة التي تتعامل مع الهمسات
-@app.on_callback_query(filters.regex("whisper"))
-async def whisper_callback(client, callback_query: CallbackQuery):
-    # إرسال رسالة للمستخدم لكتابة الهمسة
-    await callback_query.message.reply("ارسل الهمسة الآن:")
-    # تعيين حالة المستخدم لتتبع الهمسة
-    state[callback_query.from_user.id] = 'waiting_for_whisper'
-
-# الدالة التي تتعامل مع استقبال الهمسة
 @app.on_message(filters.private & filters.text & ~filters.command)
 async def receive_whisper(client, message: Message):
-    user_id = message.from_user.id
-    if user_id in state and state[user_id] == 'waiting_for_whisper':
-        # تخزين الهمسة
-        whisper = message.text
-        # طلب التأكيد من المستخدم
-        confirm_button = InlineKeyboardButton("تأكيد", callback_data="confirm_whisper")
-        cancel_button = InlineKeyboardButton("إلغاء", callback_data="cancel_whisper")
-        reply_markup = InlineKeyboardMarkup([[confirm_button, cancel_button]])
-        await message.reply("هل أنت متأكد من أنك تريد إرسال الهمسة؟", reply_markup=reply_markup)
-        # تحديث حالة الرسالة
-        state[user_id] = 'waiting_for_confirmation'
-    else:
-        # إرسال رسالة ترحيبية أو تعليمات
-        await message.reply("مرحبًا، يمكنك إرسال همسة بالضغط على الزر أدناه.")
+    # ... كود استقبال الرسائل ...
 
-# الدالة التي تتعامل مع تأكيد الهمسة
-@app.on_callback_query(filters.regex("confirm_whisper"))
-async def confirm_whisper(client, callback_query: CallbackQuery):
-    user_id = callback_query.from_user.id
-    if user_id in state and state[user_id] == 'waiting_for_confirmation':
-        # إرسال الهمسة إلى المستلم
-        # ... كود إرسال الهمسة ...
-        # إعادة تعيين حالة المستخدم
-        state[user_id] = None
-        await callback_query.message.reply("تم إرسال الهمسة بنجاح.")
+@app.on_inline_query()
+async def answer(client, inline_query):
+    user = inline_query.from_user.username
+    title = f"هذه همسه سريه ل {user} هو فقط من يستطيع روئيتها"
+    message_text = f"اهذه همسه سريه ل {user} هو فقط من يستطيع روئيتها"
+    results = [
+        InlineQueryResultArticle(
+            title=title,
+            input_message_content=InputTextMessageContent(message_text),
+            reply_markup=InlineKeyboardMarkup([[
+                InlineKeyboardButton("اظغط للرؤيه", callback_data=f"{user}or{message_text}")
+            ]])
+        )
+    ]
+    await client.answer_inline_query(inline_query.id, results)
 
-# الدالة التي تتعامل مع إلغاء الهمسة
-@app.on_callback_query(filters.regex("cancel_whisper"))
-async def cancel_whisper(client, callback_query: CallbackQuery):
-    user_id = callback_query.from_user.id
-    # إلغاء الهمسة
-    state[user_id] = None
-    await callback_query.message.reply("تم إلغاء الهمسة.")
+@app.on_callback_query()
+async def callback_query_answer(client, callback_query: CallbackQuery):
+    data = callback_query.data
+    if data:
+        ex = data.split("or")
+        if callback_query.from_user.username in ex:
+            await callback_query.answer(ex[1], show_alert=True)
+        else:
+            await callback_query.answer("الرساله ليست لك", show_alert=True)
 
-# بدء تشغيل البوت
+@app.on_message(filters.command("start"))
+async def start(client, message: Message):
+    await message.reply(
+        "مرحبا\n"
+        "🌐 انا بوت اهمسلي.\n\n"
+        "💬 يمكنك استخدامي لارسال رسائل سرية (همسات) في اي مجموعة تشاء.\n"
+        "🔮 انا اعمل عن بعد, هذا يعني انك تستيط استخدامي دون الحاجة لوجودي في المجموعة.\n"
+        "💌 طريقة استخدامي سهلة جداً, قم بتحويل اي رسالة من الشخص الذي تريد ان تهمس له هنا\n\n"
+        "هناك طرق اخرى للاستخدام يمكنك رؤيتها عبر الضغط على طرق اخرى لاستخدام البوت",
+        reply_markup=InlineKeyboardMarkup([[
+            InlineKeyboardButton("المطور", url="t.me/F_o_x_5")
+        ]])
+    )
+
 app.run()

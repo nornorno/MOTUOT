@@ -4,7 +4,7 @@ nest_asyncio.apply()
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, InlineQueryResultArticle, InputTextMessageContent
 
-app = Client("my_bot")
+app = Client("7107627916:AAExR51c8AKgmxvtpgj00kb2O9S3FwhaAqc")
 
 @app.on_inline_query()
 async def answer(client, inline_query):

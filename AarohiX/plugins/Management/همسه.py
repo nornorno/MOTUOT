@@ -1,3 +1,9 @@
+from pyrogram import Client, filters
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, InlineQueryResultArticle, InputTextMessageContent
+
+app = Client("my_bot")
+
+
 @app.on_inline_query()
 async def answer(client, inline_query):
     user = inline_query.from_user.username

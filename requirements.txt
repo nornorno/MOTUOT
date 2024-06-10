@@ -10,7 +10,8 @@ ffmpeg-python
 gitpython
 git+https://github.com/AsmSafone/SafoneAPI
 git+https://github.com/yt-dlp/yt-dlp.git
-git+https://github.com/erdewit/nest_asyncio
+git+https://github.com/erdewit/nest_asyncio@1.6.1.dev1+g6fd4dfd
+
 gtts
 gpytranslate
 hachoir
@@ -45,7 +46,7 @@ youtube-search-python
 wget
 kvsqlite 
 tornado==6.4.1
-nest_asyncio==1.6.0
+
 
 
 

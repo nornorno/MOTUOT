@@ -1,7 +1,7 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, InlineQueryResultArticle, InputTextMessageContent
 
-app = Client("7107627916:AAExR51c8AKgmxvtpgj00kb2O9S3FwhaAqc")
+app = Client("my_bot")
 
 @app.on_message(filters.private & filters.text & ~filters.command)
 async def receive_whisper(client, message: Message):

@@ -1,12 +1,3 @@
-from pyrogram import Client, filters
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, InlineQueryResultArticle, InputTextMessageContent
-
-app = Client("my_bot")
-
-@app.on_message(filters.private & filters.text & ~filters.command)
-async def receive_whisper(client, message: Message):
-    # ... كود استقبال الرسائل ...
-
 @app.on_inline_query()
 async def answer(client, inline_query):
     user = inline_query.from_user.username

@@ -7,6 +7,7 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, 
 from config import START_IMG_URL
 from AarohiX import app
 from random import choice, randint
+from pyrogram.types import CallbackQuery
 
 # تعريف 'iddof' كمجموعة
 iddof = set()

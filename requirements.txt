@@ -44,7 +44,7 @@ youtube-search-python
 wget
 kvsqlite 
 tornado==6.4.1
-
+nest_asyncio=1.6.0
 
 
 

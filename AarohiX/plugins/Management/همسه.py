@@ -46,4 +46,4 @@ async def start(client, message: Message):
         ]])
     )
 
-app.run()
+nest_asyncio.apply()

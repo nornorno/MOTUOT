@@ -41,8 +41,6 @@ spotipy
 telegraph
 tgcrypto
 unidecode
-youtube-search
-youtube-search-python
 wget
 kvsqlite 
 tornado==6.4.1

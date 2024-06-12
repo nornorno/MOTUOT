@@ -13,7 +13,9 @@ async def whisper_command(client, message: Message):
 
 @app.on_message(filters.command("همسه") & filters.group)
 async def whisper_group(client, message: Message):
-    # ... كود الأمر 'همسه' في المجموعات ...
+    # هنا يجب أن يكون الكود الخاص بالأمر 'همسه' في المجموعات
+    # تأكد من تباعد الكود بشكل صحيح
+    pass  # استبدل 'pass' بالكود الفعلي
 
 @app.on_inline_query()
 async def answer(client, inline_query):

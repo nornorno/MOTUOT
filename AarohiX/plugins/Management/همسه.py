@@ -2,32 +2,26 @@ import asyncio
 from pyrogram import filters, Client
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, InlineQueryResultArticle, InputTextMessageContent
 
-# تعريف 'iddof' كمجموعة
-iddof = set()
-
-app = Client("my_account")
-
-@app.on_message(filters.command("همسه") & filters.private)
-async def whisper_command(client, message: Message):
-    # ... كود الأمر 'همسه' في الخاص ...
-
 @app.on_message(filters.command("همسه") & filters.group)
 async def whisper_group(client, message: Message):
-    # هنا يجب أن يكون الكود الخاص بالأمر 'همسه' في المجموعات
-    # تأكد من تباعد الكود بشكل صحيح
-    pass  # استبدل 'pass' بالكود الفعلي
+    # تحقق من وجود الرسالة المراد إرسالها كهمسة
+    if ' ' in message.text:
+        # استخراج الرسالة السرية ومعرف المستخدم المستهدف
+        _, user_id, secret_message = message.text.split(' ', 2)
+        try:
+            # تحويل معرف المستخدم إلى عدد صحيح
+            user_id = int(user_id)
+            # إرسال الهمسة إلى المستخدم المستهدف
+            await app.send_message(chat_id=user_id, text=secret_message)
+            # إخطار المرسل بأن الهمسة تم إرسالها
+            await message.reply_text("تم إرسال الهمسة بنجاح.")
+        except ValueError:
+            # إذا لم يكن معرف المستخدم عددًا صحيحًا
+            await message.reply_text("خطأ: معرف المستخدم يجب أن يكون رقمًا.")
+    else:
+        # إذا لم تكن الرسالة تحتوي على معرف المستخدم والرسالة السرية
+        await message.reply_text("الرجاء إدخال معرف المستخدم والرسالة السرية.")
 
-@app.on_inline_query()
-async def answer(client, inline_query):
-    # ... كود الاستعلامات الداخلية ...
-
-@app.on_callback_query()
-async def callback_query_answer(client, callback_query: CallbackQuery):
-    # ... كود الاستجابة للاستعلامات الداخلية ...
-
-@app.on_message(filters.command("start"))
-async def start(client, message: Message):
-    # ... كود الأمر 'start' ...
 
 # دالة main التي تُستدعى لتشغيل البوت
 async def main():

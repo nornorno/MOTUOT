@@ -1,46 +1,90 @@
 import asyncio
+import os
+import time
+import requests
 from pyrogram import filters, Client
-from pyrogram.types import Message
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup, CallbackQuery
+from config import START_IMG_URL
+from AarohiX import app
+from random import choice, randint
 
 # تعريف 'iddof' كمجموعة
 iddof = set()
 
-app = Client("my_account")
+app = Client("my_bot")
 
-# الأمر 'همسه' في الخاص
 @app.on_message(filters.command("همسه") & filters.private)
 async def whisper_command(client, message: Message):
-    # تحقق من وجود الرسالة المراد إرسالها كهمسة
-    if ' ' in message.text:
-        # استخراج الرسالة السرية ومعرف المستخدم المستهدف
-        _, user_id, secret_message = message.text.split(' ', 2)
-        try:
-            # تحويل معرف المستخدم إلى عدد صحيح
-            user_id = int(user_id)
-            # إرسال الهمسة إلى المستخدم المستهدف
-            await app.send_message(chat_id=user_id, text=secret_message)
-            # إخطار المرسل بأن الهمسة تم إرسالها
-            await message.reply_text("تم إرسال الهمسة بنجاح.")
-        except ValueError:
-            # إذا لم يكن معرف المستخدم عددًا صحيحًا
-            await message.reply_text("خطأ: معرف المستخدم يجب أن يكون رقمًا.")
+    # تحقق إذا كان المستخدم قد قام بالرد على رسالة البوت
+    if message.reply_to_message and message.reply_to_message.from_user.is_bot:
+        await message.reply("أنت تحاول أن تهمس للبوت؟ يا عبيط 😄")
+    # تحقق إذا كان المستخدم يحاول الهمس لنفسه
+    elif message.from_user.id == message.chat.id:
+        await message.reply("أنت تحاول أن تهمس لنفسك؟ سلامة عقلك يا حب 😅")
     else:
-        # إذا لم تكن الرسالة تحتوي على معرف المستخدم والرسالة السرية
-        await message.reply_text("الرجاء إدخال معرف المستخدم والرسالة السرية.")
+        # إرسال همسة للمستخدم المحدد
+        await message.reply("قم بإرسال همسة لي")
 
-# الأمر 'همسه' في المجموعات
 @app.on_message(filters.command("همسه") & filters.group)
 async def whisper_group(client, message: Message):
-    # إرسال رسالة إلى المستخدم تفيد بأن الأمر يعمل فقط في الرسائل الخاصة
-    await message.reply_text("هذا الأمر يعمل فقط في الرسائل الخاصة.")
+    # تحقق إذا كان المستخدم قد قام بالرد على رسالة البوت
+    if message.reply_to_message and message.reply_to_message.from_user.is_bot:
+        await message.reply("أنت تحاول أن تهمس للبوت؟ يا عبيط 😄", quote=True)
+    # تحقق إذا كان المستخدم يحاول الهمس لنفسه
+    elif message.from_user.id == message.reply_to_message.from_user.id:
+        await message.reply("أنت تحاول أن تهمس لنفسك؟ سلامة عقلك يا حب 😅", quote=True)
+    else:
+        # إرسال همسة للمستخدم المحدد
+        await message.reply("قم بإرسال همسة لي", quote=True)
+
+@app.on_inline_query()
+async def answer(client, inline_query):
+    user = inline_query.from_user.username
+    title = f"هذه همسه سريه ل {user} هو فقط من يستطيع روئيتها"
+    message_text = f"اهذه همسه سريه ل {user} هو فقط من يستطيع روئيتها"
+    results = [
+        InlineQueryResultArticle(
+            title=title,
+            input_message_content=InputTextMessageContent(message_text),
+            reply_markup=InlineKeyboardMarkup([[
+                InlineKeyboardButton("اظغط للرؤيه", callback_data=f"{user}or{message_text}")
+            ]])
+        )
+    ]
+    await client.answer_inline_query(inline_query.id, results)
+
+@app.on_callback_query()
+async def callback_query_answer(client, callback_query: CallbackQuery):
+    data = callback_query.data
+    if data:
+        ex = data.split("or")
+        if callback_query.from_user.username in ex:
+            await callback_query.answer(ex[1], show_alert=True)
+        else:
+            await callback_query.answer("الرساله ليست لك", show_alert=True)
+
+@app.on_message(filters.command("start"))
+async def start(client, message: Message):
+    await message.reply(
+        "مرحبا\n"
+        "🌐 انا بوت اهمسلي.\n\n"
+        "💬 يمكنك استخدامي لارسال رسائل سرية (همسات) في اي مجموعة تشاء.\n"
+        "🔮 انا اعمل عن بعد, هذا يعني انك تستيط استخدامي دون الحاجة لوجودي في المجموعة.\n"
+        "💌 طريقة استخدامي سهلة جداً, قم بتحويل اي رسالة من الشخص الذي تريد ان تهمس له هنا\n\n"
+        "هناك طرق اخرى للاستخدام يمكنك رؤيتها عبر الضغط على طرق اخرى لاستخدام البوت",
+        reply_markup=InlineKeyboardMarkup([[
+            InlineKeyboardButton("المطور", url="t.me/F_o_x_5")
+        ]])
+    )
 
 # دالة main التي تُستدعى لتشغيل البوت
 async def main():
     async with app:
         await app.start()
-        # ... كود البوت ...
-        await app.stop()
+        print("البوت الآن نشط ويعمل.")
+        await asyncio.get_event_loop().create_future()
 
 # تشغيل حلقة الحدث
 if __name__ == "__main__":
-    asyncio.run(main())
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())

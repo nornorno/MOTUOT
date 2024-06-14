@@ -11,8 +11,8 @@ from random import choice, randint
 # تعريف 'iddof' كمجموعة
 iddof = set()
 
-@app.on_message(filters.command(["ايدي", "id", "ا"], prefixes="/"))
-async def iddd(client, message):
+@app.on_message(filters.regex(r"^"ايدي", "id", "ا"$"))
+async def maker(client: Client, message: Message):
     if message.chat.id in iddof:
         return
     usr = await client.get_chat(message.from_user.id)

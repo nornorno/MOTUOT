@@ -1,3 +1,16 @@
+import asyncio
+import os
+import time
+import requests
+from pyrogram import filters, Client
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup
+from config import START_IMG_URL
+from AarohiX import app
+from random import choice, randint
+
+# تعريف 'iddof' كمجموعة
+iddof = set()
+
 @app.on_message(filters.command(["ايدي", "id", "ا"], prefixes="/"))
 async def iddd(client, message):
     if message.chat.id in iddof:
@@ -28,3 +41,13 @@ async def iddd(client, message):
         await message.reply_text(
             f"""🤡 ¦𝙽𝙰𝙼𝙴 :{name}\n🎯 ¦𝚄𝚂𝙴𝚁 :@{username}\n🎃 ¦𝙸𝙳 :`{usr.id}`\n💌 ¦𝙱𝙸𝙾 :{bio}\n✨ ¦𝙲𝙷𝙰𝚃: {chat_title}\n🏅 ¦𝚁𝙰𝙽𝙺: {rank}\n♻️ ¦𝙸𝙳.𝙶𝚁𝙾𝚄𝙿 :`{message.chat.id}`"""
         )
+دالة main التي تُستدعى لتشغيل البوت
+async def main():
+    async with app:
+        await app.start()
+        # ... كود البوت
+        await app.stop()
+
+# تشغيل حلقة الحدث
+if __name__ == "__main__":
+    asyncio.run(main())

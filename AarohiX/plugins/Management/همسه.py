@@ -43,16 +43,18 @@ async def hms_start(client, message):
 async def send_hms(client, message):
     global waiting_for_hms
     if waiting_for_hms:    
-        to_id, from_id, in_id = map(int, hms_ids.split("hms")[1].split("to")[0], hms_ids.split("to")[1].split("in")[0], hms_ids.split("in")[1])
+        to_id, from_id, in_id = map(int, [hms_ids.split("hms")[1].split("to")[0], hms_ids.split("to")[1].split("in")[0], hms_ids.split("in")[1]])
+
         to_url, from_url = f"tg://openmessage?user_id={to_id}", f"tg://openmessage?user_id={from_id}"
         
-        hmses[str(to_id)] = {"hms": message.text, "bar": in_id}
+        hmses[str(to_id)] = {"hms": message.text, "bar": in_id, "from": from_id}
         
         await message.reply_text("✅ تم ارسال الهمسه.")
         
+        # Send a notification to the group with mention
         await app.send_message(
             chat_id=in_id,
-            text=f"💌 لديك همسه جديدة من {(await app.get_chat(from_id)).first_name}",
+            text=f"💌 {(await app.get_chat(from_id)).first_name} لديك همسه جديدة من {(await app.get_chat(to_id)).first_name}",
             reply_markup=InlineKeyboardMarkup(
                 [
                     [InlineKeyboardButton("👀 اضغط لرؤية الهمسه", callback_data="hms_answer")]
@@ -68,7 +70,12 @@ async def display_hms(client, callback):
     in_id, who_id = callback.message.chat.id, callback.from_user.id
     
     if hmses.get(str(who_id)) and hmses[str(who_id)]["bar"] == in_id:
-        await callback.answer(hmses[str(who_id)]["hms"], show_alert=True)
+        # Show the whisper to the recipient and the sender
+        hms_text = hmses[str(who_id)]["hms"]
+        from_id = hmses[str(who_id)]["from"]
+        await callback.answer(hms_text, show_alert=True)
+        if from_id != who_id:
+            await app.send_message(chat_id=from_id, text=f"📬 همستك: {hms_text}")
     else:
         await callback.answer("❗️ الامر ليس لك", show_alert=True)
 
@@ -88,3 +95,12 @@ async def cancel_hms(client, callback):
 @app.on_callback_query(filters.regex("hms_confirm"))
 async def confirm_hms(client, callback):
     await callback.answer("✅ تم تأكيد الهمسه", show_alert=True)
+
+# Function to handle mentions (newly added as per request)
+@app.on_message(filters.text & filters.group)
+async def handle_mentions(client, message):
+    text = message.text
+    if "@botusername" in text:  # Replace with your bot's username
+        await message.reply_text("😅 انتا بتمنشن للبوت يعبيط اعقل")
+    elif f"@{message.from_user.username}" in text:
+        await message.reply_text("🤔 انتا بتمنشن لي نفسك ليه؟")

@@ -299,7 +299,7 @@ async def maker(client: Client, message: Message):
         await client.send_message(current_spouse_id, f"@{message.from_user.username} بيحاول يتزوج عليك/عليكِ!")
     else:
         @app.on_message(filters.regex(r"^زواج$"))
-async def maker(client: Client, message: Message):
+    async def maker(client: Client, message: Message):
     try:
         if message.reply_to_message:
             reply_name = message.reply_to_message.from_user.first_name

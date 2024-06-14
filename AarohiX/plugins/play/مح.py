@@ -4,7 +4,7 @@ from AarohiX import app
 from pyrogram.errors import FloodWait
 import asyncio
 
-@app.on_message(filters.regex(r"^محح$"))
+@app.on_message(filters.regex(r"^(مح|محمح|مووح)$"))
 async def maker(client: Client, message: Message):
     try:
         # التحقق من وجود رسالة للرد عليها

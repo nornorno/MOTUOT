@@ -1,7 +1,7 @@
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import os
-from MatrixMusic import app
+from AarohiX import app
 
 hmses = {}
 

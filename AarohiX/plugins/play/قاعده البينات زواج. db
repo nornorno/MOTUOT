@@ -1,0 +1,32 @@
+import sqlite3
+
+# إنشاء اتصال بقاعدة البيانات (سيتم إنشاء ملف قاعدة البيانات إذا لم يكن موجودًا)
+conn = sqlite3.connect('marriage_db.sqlite')
+
+# إنشاء جدول لتخزين معلومات الزواج
+conn.execute('''
+CREATE TABLE IF NOT EXISTS marriages (
+    user_id INTEGER PRIMARY KEY,
+    spouse_id INTEGER,
+    spouse_username TEXT
+)
+''')
+conn.commit()
+
+# وظيفة لإضافة معلومات الزواج إلى قاعدة البيانات
+def add_marriage(user_id, spouse_id, spouse_username):
+    conn.execute('INSERT INTO marriages (user_id, spouse_id, spouse_username) VALUES (?, ?, ?)', (user_id, spouse_id, spouse_username))
+    conn.commit()
+
+# وظيفة للحصول على معلومات الزواج من قاعدة البيانات
+def get_marriage_info(user_id):
+    cursor = conn.execute('SELECT spouse_id, spouse_username FROM marriages WHERE user_id = ?', (user_id,))
+    row = cursor.fetchone()
+    return row if row else None
+
+# وظيفة لحذف معلومات الزواج من قاعدة البيانات (في حالة الطلاق)
+def remove_marriage(user_id):
+    conn.execute('DELETE FROM marriages WHERE user_id = ?', (user_id,))
+    conn.commit()
+
+# ... يمكنك هنا إضافة المزيد من الوظائف حسب الحاجة ...

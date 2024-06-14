@@ -41,7 +41,7 @@ async def iddd(client, message):
         await message.reply_text(
             f"""🤡 ¦𝙽𝙰𝙼𝙴 :{name}\n🎯 ¦𝚄𝚂𝙴𝚁 :@{username}\n🎃 ¦𝙸𝙳 :`{usr.id}`\n💌 ¦𝙱𝙸𝙾 :{bio}\n✨ ¦𝙲𝙷𝙰𝚃: {chat_title}\n🏅 ¦𝚁𝙰𝙽𝙺: {rank}\n♻️ ¦𝙸𝙳.𝙶𝚁𝙾𝚄𝙿 :`{message.chat.id}`"""
         )
-دالة main التي تُستدعى لتشغيل البوت
+#دالة main التي تُستدعى لتشغيل البوت
 async def main():
     async with app:
         await app.start()

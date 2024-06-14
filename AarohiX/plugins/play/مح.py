@@ -163,38 +163,38 @@ async def maker(client: Client, message: Message):
 
 
 @app.on_message(filters.regex(r"^زواج$"))
-async def maker(client: Client, message: Message):
-    try:
-        if message.reply_to_message:
-            reply_name = message.reply_to_message.from_user.first_name
-            reply_username = message.reply_to_message.from_user.username
-            # فرض أن لديك طريقة لتحديد الجنس هنا
-            user_gender = determine_gender(message.from_user)
-            reply_user_gender = determine_gender(message.reply_to_message.from_user)
+async def marriage(client: Client, message: Message):
+    if message.reply_to_message:
+        reply_user = message.reply_to_message.from_user
+        reply_name = reply_user.first_name
+        reply_username = reply_user.username
 
-            # تحقق إذا كان الجنس متطابق وقم بإرسال رسالة مخصصة
-            if user_gender == reply_user_gender:
-                await message.reply_text("مش بجوز انا 🏳️‍🌈🏳️‍🌈🏳️‍🌈🏳️‍🌈🏳️‍🌈شواذ انا ماذون راجل وست😂😂")
-            else:
-                # الكود الأصلي لإرسال الفيديو
-                await message.reply_video(
-                    video="https://te.legra.ph/file/cd20a066b3ce6e2db5564.mp4",
-                    caption=f"• هذا العريس @{message.from_user.username} \n※ اجوز الوتكها دي دي @{reply_username} \n 👩‍❤️‍👩👨‍❤️‍👨👩‍❤️‍👨👩‍❤️‍👨💑👩‍❤️‍💋‍👩👨‍❤️‍💋‍👨وبنهم شهر العثل في شرم الشيخ  علي حسابي انا  ",
-                    reply_markup=InlineKeyboardMarkup(
+        # تحقق إذا كان الشخص المردود عليه بوت
+        if reply_user.is_bot:
+            await message.reply_text("دها بوت يهبل 😂")
+        else:
+            # تحقق من الجنس وإجراء الزواج هنا
+            # ...
+            # الكود الأصلي لإرسال الفيديو
+            await message.reply_video(
+                video="https://te.legra.ph/file/cd20a066b3ce6e2db5564.mp4",
+                caption=f"• هذا العريس @{message.from_user.username} \n※ اجوز الوتكها دي دي @{reply_username} \n 👩‍❤️‍👩👨‍❤️‍👨👩‍❤️‍👨👩‍❤️‍👨💑👩‍❤️‍💋‍👩👨‍❤️‍💋‍👨وبنهم شهر العثل في شرم الشيخ علي حسابي انا",
+                reply_markup=InlineKeyboardMarkup(
+                    [
                         [
-                            [
-                                InlineKeyboardButton(
-                                    message.from_user.first_name, url=f"https://t.me/{message.from_user.username}"
-                                ),
-                                InlineKeyboardButton(
-                                    reply_name, url=f"https://t.me/{reply_username}"
-                                ),
-                            ],
-                        ]
-                    )
+                            InlineKeyboardButton(
+                                message.from_user.first_name, url=f"https://t.me/{message.from_user.username}"
+                            ),
+                            InlineKeyboardButton(
+                                reply_name, url=f"https://t.me/{reply_username}"
+                            ),
+                        ],
+                    ]
                 )
-    except FloodWait as e:
-        await asyncio.sleep(e.x)  # X هو عدد الثواني التي يجب الانتظار
+            )
+    else:
+        await message.reply_text("يرجى الرد على الشخص الذي تريد الزواج منه.")
+
 
 
 @app.on_message(filters.regex(r"^طلاق$"))
@@ -240,29 +240,47 @@ def is_bot(user_id):
 from pyrogram import Client, filters
 
 @app.on_message(filters.regex(r"^خلع$"))
-async def divorce(client: Client, message: Message):
-    # الكود الأصلي لإرسال الفيديو
-    await message.reply_video(video="https://te.legra.ph/file/11e7cbadb472de6ff3dd3.mp4")
-
-    # كود الخلع
+async def khul_divorce(client: Client, message: Message):
     if message.reply_to_message:
-        reply_username = message.reply_to_message.from_user.username
-        # تحقق من جنس المستخدم (يجب أن تكون لديك طريقة لتحديد الجنس)
+        reply_user = message.reply_to_message.from_user
+        reply_username = reply_user.username
+
+        # تحقق من جنس المستخدم باستخدام الاسم أو المعرف
         user_gender = determine_gender(message.from_user)
+        
+        # تأكد من أن الأمر مخصص للإناث فقط
         if user_gender == "female":
-            await message.reply_text(
-                f"تم خلع جوزك @{reply_username} 💃💃💃💃💃 بنجاح 🫶 عشان اللي بعنا 🖕 خسر دلعنا."
-            )
+            # تحقق من وجود الزواج في قاعدة البيانات
+            if is_married(message.from_user.id, reply_user.id):
+                # إجراء الخلع
+                perform_khul(message.from_user.id, reply_user.id)
+                await message.reply_text(
+                    f"تم خلع @{reply_username} بنجاح 💃💃💃. الآن أنتِ حرة!"
+                )
+            else:
+                await message.reply_text("أنتِ لستِ متزوجة من هذا الشخص أصلاً.")
         elif user_gender == "male":
-            await message.reply_text(
-                "عفوًا، لكن هذا الأمر مخصص للإناث فقط."
-            )
+            await message.reply_text("عفوًا، لكن هذا الأمر مخصص للإناث فقط.")
         else:
-            await message.reply_text(
-                "لم أتمكن من تحديد الجنس بشكل صحيح."
-            )
+            await message.reply_text("لم أتمكن من تحديد الجنس بشكل صحيح.")
     else:
         await message.reply_text("❗️ لا يوجد رسالة للرد عليها.")
+
+# تحقق من وجود الزواج في قاعدة البيانات
+def is_married(user_id, spouse_id):
+    # هنا يجب تنفيذ الكود للتحقق من قاعدة البيانات
+    pass
+
+# إجراء الخلع
+def perform_khul(user_id, spouse_id):
+    # هنا يجب تنفيذ الكود لإزالة الزواج من قاعدة البيانات
+    pass
+
+# تحديد جنس المستخدم من الاسم أو المعرف
+def determine_gender(user):
+    # هنا يجب تنفيذ الكود لتحديد الجنس
+    # يمكن استخدام الأسماء الأولى أو المعرفات لتقدير الجنس
+    pass
 
 
 
@@ -271,18 +289,21 @@ async def divorce(client: Client, message: Message):
 @app.on_message(filters.regex(r"^مراتي$"))
 async def maker(client: Client, message: Message):
     user_id = message.from_user.id
+    print(f"تم استلام الأمر مراتي من المستخدم {user_id}")  # رسالة تصحيح
+
     # استعلم عن زوجة المستخدم من قاعدة البيانات
     wife_info = get_marriage_info(user_id)
     if wife_info:
         wife_username, wife_id = wife_info
         await message.reply(f"@{wife_username}، ردّي على جوزك!")
     else:
+        print("لم يتم العثور على معلومات الزواج في قاعدة البيانات")  # رسالة تصحيح
         await message.reply("أنت لست متزوجًا.")
 
 @app.on_message(filters.command("جوزي") & filters.private)
 async def my_husband(client, message):
     user_id = message.from_user.id
-    # استعلم عن جوز المستخدمة من قاعدة البيانات
+    # استعلم عن زوج المستخدمة من قاعدة البيانات
     husband_info = get_marriage_info(user_id)
     if husband_info:
         husband_username, husband_id = husband_info
@@ -290,22 +311,35 @@ async def my_husband(client, message):
     else:
         await message.reply("أنتِ لستِ متزوجة.")
 
+# يجب تعريف الدالة get_marriage_info خارج الدالة my_husband
+def get_marriage_info(user_id):
+    # كود لاستعلام عن معلومات الزواج من قاعدة البيانات
+    pass
+
+
 @app.on_message(filters.regex(r"^زواج$"))
-async def maker(client: Client, message: Message):
+async def marriage_contract(client: Client, message: Message):
     user_id = message.from_user.id
-    # تحقق من حالة الزواج الحالية
+    # تحقق من حالة الزواج الحالية للمستخدم
     current_spouse_info = get_marriage_info(user_id)
     if current_spouse_info:
         current_spouse_username, current_spouse_id = current_spouse_info
         # إذا كان المستخدم متزوجًا بالفعل، أرسل تحذيرًا
-        await message.reply(f"أنت متزوج بالفعل @{current_spouse_username}. أوعى توافقي!")
-        # إرسال منشن للزوج/الزوجة الحالية
-        await client.send_message(current_spouse_id, f"@{message.from_user.username} بيحاول يتزوج عليك/عليكِ!")
+        await message.reply(f"أنت متزوج بالفعل @{current_spouse_username}. لا يمكنك زواج  آخر!")
+        # إرسال تنبيه للزوج/الزوجة الحالية
+        await client.send_message(current_spouse_id, f"@{message.from_user.username} يحاول زواج  آخر!")
     else:
-        # تنفيذ الكود إذا لم يكن المستخدم متزوجًا
-        pass  # استبدل هذا بالكود الفعلي للزواج
+        # تنفيذ الكود لعقد القران إذا لم يكن المستخدم متزوجًا
+        # هنا يمكنك إضافة الكود الخاص بعقد القران
+        pass
 
-# يجب تعريف الدالة determine_gender خارج الدالة maker
+# يجب تعريف الدالة get_marriage_info خارج الدالة marriage_contract
+def get_marriage_info(user_id):
+    # كود لاستعلام عن معلومات الزواج من قاعدة البيانات
+    pass
+
+# يجب تعريف الدالة determine_gender خارج الدالة marriage_contract
 def determine_gender(user):
     # كود لتحديد الجنس
     pass
+

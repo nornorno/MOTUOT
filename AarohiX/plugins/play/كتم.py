@@ -154,7 +154,8 @@ async def maker(client: Client, message: Message):
 
 # كود مسح المحظورين
 @app.on_message(filters.regex(r"^مسح المحظورين $"))
-async def maker(client: Client, message: Message)::
+async def maker(client: Client, message: Message):
+    # كود الدالة هنا
     # التحقق من صلاحيات المستخدم الحالي
     member_status = await client.get_chat_member(message.chat.id, message.from_user.id)
     if member_status.status not in ["administrator", "creator"]:

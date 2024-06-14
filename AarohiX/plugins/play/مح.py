@@ -286,7 +286,7 @@ async def my_husband(client, message):
     else:
         await message.reply("أنتِ لستِ متزوجة.")
 
-@app.on_message(filters.regex(r"زواج$"))
+@app.on_message(filters.regex(r"^زواج$"))
 async def maker(client: Client, message: Message):
     user_id = message.from_user.id
     # تحقق من حالة الزواج الحالية
@@ -298,47 +298,10 @@ async def maker(client: Client, message: Message):
         # إرسال منشن للزوج/الزوجة الحالية
         await client.send_message(current_spouse_id, f"@{message.from_user.username} بيحاول يتزوج عليك/عليكِ!")
     else:
-        @app.on_message(filters.regex(r"^زواج$"))
-async def maker(client: Client, message: Message):
-    try:
-        # كودك هنا
-        pass
-    except Exception as e:
-        print(f"حدث خطأ: {e}")
-                        
-        if message.reply_to_message:
-            reply_name = message.reply_to_message.from_user.first_name
-            reply_username = message.reply_to_message.from_user.username
-            # فرض أن لديك طريقة لتحديد الجنس هنا
-            user_gender = determine_gender(message.from_user)
-            reply_user_gender = determine_gender(message.reply_to_message.from_user)
+        # تنفيذ الكود إذا لم يكن المستخدم متزوجًا
+        pass  # استبدل هذا بالكود الفعلي للزواج
 
-            # تحقق إذا كان الجنس متطابق وقم بإرسال رسالة مخصصة
-            if user_gender == reply_user_gender:
-                await message.reply_text("مش بجوز انا 🏳️‍🌈🏳️‍🌈🏳️‍🌈🏳️‍🌈🏳️‍🌈شواذ انا ماذون راجل وست😂😂")
-            else:
-                # الكود الأصلي لإرسال الفيديو
-                await message.reply_video(
-                    video="https://te.legra.ph/file/cd20a066b3ce6e2db5564.mp4",
-                    caption=f"• هذا العريس @{message.from_user.username} \n※ اجوز الوتكها دي دي @{reply_username} \n 👩‍❤️‍👩👨‍❤️‍👨👩‍❤️‍👨👩‍❤️‍👨💑👩‍❤️‍💋‍👩👨‍❤️‍💋‍👨وبنهم شهر العثل في شرم الشيخ  علي حسابي انا  ",
-                    reply_markup=InlineKeyboardMarkup(
-                        [
-                            [
-                                InlineKeyboardButton(
-                                    message.from_user.first_name, url=f"https://t.me/{message.from_user.username}"
-                                ),
-                                InlineKeyboardButton(
-                                    reply_name, url=f"https://t.me/{reply_username}"
-                                ),
-                            ],
-                        ]
-                    )
-                )
-    except FloodWait as e:
-        await asyncio.sleep(e.x)  # X هو عدد الثواني التي يجب الانتظار
-        pass
-
-# هذه الوظيفة الوهمية للحصول على معلومات الزواج، يجب استبدالها بالاستعلام الفعلي من قاعدة البيانات
-def get_marriage_info(user_id):
-    # هنا يجب كتابة الكود الذي يستعلم عن معلومات الزواج من قاعدة البيانات
-    return ("username_of_the_spouse", "spouse_user_id")
+# يجب تعريف الدالة determine_gender خارج الدالة maker
+def determine_gender(user):
+    # كود لتحديد الجنس
+    pass

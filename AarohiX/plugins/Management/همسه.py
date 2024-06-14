@@ -79,7 +79,7 @@ async def maker(client: Client, message: Message):
         await message.reply("أنت تحاول أن تهمس لنفسك؟ سلامة عقلك يا حب 😅")
     else:
        # متغير لتخزين الصورة المتحركة
-animated_image = 'https://te.legra.ph/file/d0bedd7b2d959f44ae9ab.mp4'  # استبدل بمسار الصورة المتحركة
+    animated_image = 'https://te.legra.ph/file/d0bedd7b2d959f44ae9ab.mp4'  # استبدل بمسار الصورة المتحركة
         pass
 
 # يجب تشغيل البوت في النهاية

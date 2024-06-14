@@ -197,7 +197,7 @@ async def maker(client: Client, message: Message):
         await asyncio.sleep(e.x)  # X هو عدد الثواني التي يجب الانتظار
 
 
-@@app.on_message(filters.regex(r"^طلاق$"))
+@app.on_message(filters.regex(r"^طلاق$"))
 async def maker(client: Client, message: Message):
     try:
         if message.reply_to_message:

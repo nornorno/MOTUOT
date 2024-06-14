@@ -198,40 +198,44 @@ async def maker(client: Client, message: Message):
 
 
 @app.on_message(filters.regex(r"^طلاق$"))
-async def maker(client: Client, message: Message):
-    try:
-        if message.reply_to_message:
-            reply_name = message.reply_to_message.from_user.first_name
-            reply_username = message.reply_to_message.from_user.username
-            # هنا يمكنك تحديد جنس المستخدم والشخص الذي يتم الرد عليه
-            # على سبيل المثال، يمكنك استخدام قاعدة بيانات خارجية أو الأسماء الأولى
-            user_gender = "female"  # يجب تحديد هذا بناءً على معلوماتك
-            reply_user_gender = "male"  # يجب تحديد هذا بناءً على معلوماتك
+async def divorce(client: Client, message: Message):
+    # تحقق من وجود رسالة مردود عليها
+    if message.reply_to_message:
+        user_id = message.from_user.id
+        spouse_id = message.reply_to_message.from_user.id
 
-            # تحقق إذا كان المستخدم أنثى والشخص الذي يتم الرد عليه ذكر
-            if user_gender == "female" and reply_user_gender == "male":
-                await message.reply_text("عفوًا ولكن العصمة في يد 🤭 جوزك 🧔. اذهبي إلى ✈️ محكمة 🏫 وقومي بعمل طلب خلع ✈️.")
-            else:
-                # الكود الأصلي لإرسال الفيديو
-                await message.reply_video(
-                    video="https://te.legra.ph/file/9edc54f51694547ba1981.mp4",
-                    caption=f"• هذا الرجل @{message.from_user.username} \n※ قام بطلاق مراته وأصبحت الآن الإكس بتاعته @{reply_username} \n بكرة تيجي ندمان يا جميل.",
-                    reply_markup=InlineKeyboardMarkup(
-                        [
-                            [
-                                InlineKeyboardButton(
-                                    message.from_user.first_name, url=f"https://t.me/{message.from_user.username}"
-                                ),
-                                InlineKeyboardButton(
-                                    reply_name, url=f"https://t.me/{reply_username}"
-                                ),
-                            ],
-                        ]
-                    )
-                )
-    except FloodWait as e:
-        await asyncio.sleep(e.x)  # X هو عدد الثواني التي يجب الانتظار
+        # تحقق من وجود الزواج في قاعدة البيانات
+        if is_married(user_id, spouse_id):
+            # إجراء الطلاق
+            divorce(user_id, spouse_id)
+            await message.reply_text(f"تم الطلاق بنجاح بين {message.from_user.mention} و {message.reply_to_message.from_user.mention}.")
+        elif is_bot(spouse_id):
+            await message.reply_text("لا يمكنك الزواج من بوت!")
+        else:
+            await message.reply_text("أنت لست متزوجًا من هذا الشخص أصلاً.")
+    else:
+        await message.reply_text("يرجى الرد على الشخص الذي تريد الطلاق منه.")
 
+# تحقق من وجود الزواج في قاعدة البيانات
+def is_married(user_id, spouse_id):
+    # هنا يجب تنفيذ الكود للتحقق من قاعدة البيانات
+    # على سبيل المثال:
+    # return db.check_marriage(user_id, spouse_id)
+    pass
+
+# إجراء الطلاق
+def divorce(user_id, spouse_id):
+    # هنا يجب تنفيذ الكود لإزالة الزواج من قاعدة البيانات
+    # على سبيل المثال:
+    # db.remove_marriage(user_id, spouse_id)
+    pass
+
+# تحقق إذا كان الشخص بوت
+def is_bot(user_id):
+    # هنا يجب تنفيذ الكود للتحقق مما إذا كان الشخص بوت
+    # على سبيل المثال:
+    # return db.check_if_bot(user_id)
+    pass
 
 from pyrogram import Client, filters
 

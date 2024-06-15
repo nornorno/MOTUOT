@@ -3,14 +3,14 @@ import config
 from pyrogram import Client, filters
 from pyrogram import filters
 from strings.filters import command
-from MatrixMusic import app
+from AarohiX import app
 from config import OWNER_ID
-from MatrixMusic.misc import SUDOERS
+from AarohiX.misc import SUDOERS
 from strings.filters import command
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, ReplyKeyboardMarkup
 from pyrogram.types import (InlineKeyboardButton,CallbackQuery,InlineKeyboardMarkup, Message)
-from MatrixMusic import (Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app)
-from MatrixMusic.misc import SUDOERS
+from AarohiX import (Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app)
+from AarohiX.misc import SUDOERS
 import sys
 from os import getenv
 

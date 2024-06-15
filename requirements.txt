@@ -1,4 +1,4 @@
-aiofiles
+uaiofiles
 aiohttp
 apscheduler
 asyncio
@@ -44,7 +44,6 @@ unidecode
 wget
 kvsqlite 
 tornado==6.4.1
-
-
+youtube-search-python
 
 

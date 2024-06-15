@@ -100,8 +100,8 @@ def reply_to_HEY(Client, message):
 @app.on_message(filters.regex("✭ مطور السورس"))
 def reply_to_HEY(Client, message):
     message.reply_photo(
-        photo=f"https://t.me/"F_o_x_5",
-        caption=f"""[THIS DEV MAIN  سـورس ميـوزك الـعالم](https://t.me/nor_o)""",
+        photo="https://t.me/F_o_x_5",
+        caption=f"""[THIS DEV MAIN  سـورس ميـوزك الـعالم](https://t.me/F_o_x_5)""",
         reply_markup=InlineKeyboardMarkup(
             [
             [

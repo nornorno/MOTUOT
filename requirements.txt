@@ -11,7 +11,7 @@ gitpython
 git+https://github.com/AsmSafone/SafoneAPI
 git+https://github.com/yt-dlp/yt-dlp.git
 git+https://github.com/erdewit/nest_asyncio.git
-
+git+https://github.com/alexmercerind/youtube-search-python
 gtts
 gpytranslate
 hachoir

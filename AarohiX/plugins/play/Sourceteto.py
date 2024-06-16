@@ -5,7 +5,7 @@ import requests
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup
 from strings.filters import command
-from AarohiX import Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app
+from AarohiX import Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app  # Import app here
 from random import choice, randint
 
 #  Define a custom function to get developer info
@@ -13,7 +13,11 @@ async def get_developer_info(client: Client, username: str):
     try:
         usr = await client.get_chat(username)
         name = usr.first_name
-        photo = await app.download_media(usr.photo.big_file_id)  # Handle potential errors here
+        try:
+            photo = await app.download_media(usr.photo.big_file_id)  # Handle potential errors here
+        except Exception as e:
+            print(f"Error downloading profile picture: {e}")
+            photo = None
         return name, photo, usr
     except Exception as e:
         print(f"Error fetching developer info: {e}")
@@ -31,7 +35,7 @@ async def source_command(client: Client, message: Message):
 么- 𓏺Whoever humbles #himself to god will be #exalted 𓏺
 ▰▰▰▰▰▰▰▰▰▰▰▰▰
 ❅─────✧❅✦❅✧─────❅
-⍟ 𝚃𝙷𝙴 𝙱𝙴𝚂𝚃 𝚂𝙾𝚄𝚁𝙲𝙴 𝙾𝙽 𝚃𝙴𝙻𝙴𝙶𝚁𝙰𝙼
+⍟ 𝚃𝙷𝙴 𝙱𝙴𝚂𝚃 𝚂𝙾𝚄𝚁𝙲𝙴 𝙾𝙽 𝚃𝙴𝙻𝙴𝙶𝚁𝙰ﻢ
 .""",
         reply_markup=InlineKeyboardMarkup(
             [
@@ -91,3 +95,6 @@ async def source_developer_command(client: Client, message: Message):
                                  )
     else:
         await message.reply("لم يتم العثور على معلومات المطور")
+
+# Start the bot
+app.run()  # Add this line to start your bot

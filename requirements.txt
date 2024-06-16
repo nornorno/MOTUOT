@@ -44,7 +44,7 @@ unidecode
 wget
 kvsqlite 
 tornado==6.4.1
-
+youtube-search-python-1.6.6
 
 
 

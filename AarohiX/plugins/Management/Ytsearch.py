@@ -1,6 +1,6 @@
 import logging
 from pyrogram.types import Message
-from youtube_search import YoutubeSearch
+from  youtube-search-python import  youtube-search-python
 from AarohiX import app
 from pyrogram import filters
 from config import BOT_USERNAME

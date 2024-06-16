@@ -14,11 +14,8 @@ from AarohiX import app
 from random import  choice, randint
 
                 
-@app.on_message(
-    command(["سورس","السورس"])
-    
-)
-async def huhh(client: Client, message: Message):
+@app.on_message(command(["سورس", "السورس"]))
+async def source_command(client: Client, message: Message):
     await message.reply_video(
         video=f"https://telegra.ph/file/06ea0dffac061d340b30a.mp4",
         caption=f"""❅─────✧❅✦❅✧─────❅
@@ -61,12 +58,8 @@ async def huhh(client: Client, message: Message):
 
 
 
-@app.on_message(
-    command(["المطور فوكس"])
-    
-    
-)
-async def yas(client, message):
+@app.on_message(command(["المطور فوكس"]))
+async def developer_fox_command(client: Client, message: Message):
     usr = await client.get_chat("F_o_x_5")
     name = usr.first_name
     photo = await app.download_media(usr.photo.big_file_id)
@@ -82,12 +75,8 @@ async def yas(client, message):
     )
 
 
-@app.on_message(
-    command(["حكم" "فوكس","مبرمج السورس"])
-    
-    
-)
-async def yas(client, message):
+app.on_message(command(["مطور السورس", "الحاكم", "فوكس"]))
+async def source_developer_command(client: Client, message: Message):
     usr = await client.get_chat("F_o_x_5")
     name = usr.first_name
     photo = await app.download_media(usr.photo.big_file_id)
@@ -104,12 +93,8 @@ async def yas(client, message):
 
 
 
-@app.on_message(
-    command(["مطور السورس" , "الحاكم","فوكس"])
-    
-    
-)
-async def yas(client, message):
+@app.on_message(command(["حكم", "فوكس", "مبرمج السورس"]))
+async def wisdom_fox_command(client: Client, message: Message):
     usr = await client.get_chat("F_o_x_5")
     name = usr.first_name
     photo = await app.download_media(usr.photo.big_file_id)

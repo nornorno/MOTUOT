@@ -96,13 +96,7 @@ async def source_developer_command(client: Client, message: Message):
     else:
         await message.reply("لم يتم العثور على معلومات المطور")
 
-# Start the bot
-#دالة main التي تُستدعى لتشغيل البوت
-async def main():
-    async with app:
-        await app.start()
-        # ... كود البوت
-        await app.stop()
+# 
 
 # تشغيل حلقة الحدث
 if __name__ == "__main__":

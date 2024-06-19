@@ -1,6 +1,16 @@
 from datetime import datetime
 from sys import version_info
 from time import time
+
+from config import (
+    ALIVE_IMG,
+    ALIVE_NAME,
+    BOT_NAME,
+    BOT_USERNAME,
+    GROUP_SUPPORT,
+    OWNER_NAME,
+    UPDATES_CHANNEL,
+)
 from program import __version__
 from driver.filters import command, other_filters
 from pyrogram import Client, filters

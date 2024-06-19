@@ -109,11 +109,11 @@ close_button = InlineKeyboardButton("「 تنظيف 」", callback_data="close"
 @app.on_callback_query(filters.regex("^bot_info_data$"))
 async def show_bot_info(c: app, q: CallbackQuery):
     start = time()
-    x = await c.send_message(q.message.chat.id, "جاري جلب المعلومات")
+    x = await c.send_message(q.message.chat.id, "~ البنك ..")
     delta_ping = time() - start
     await x.delete()
     txt = f"""
-    ~ سرعه البوت : {delta_ping * 1000:.3f} ثانية  
+    ~ البنك هو : {delta_ping * 1000:.3f} ثانية  
     ~ نسخة البايثون : 3.10.4
     ~ نسخة البايروجرام : {pver}
     """

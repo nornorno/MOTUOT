@@ -1,8 +1,6 @@
 from datetime import datetime
 from sys import version_info
 from time import time
-
-
 from program import __version__
 from driver.filters import command, other_filters
 from pyrogram import Client, filters

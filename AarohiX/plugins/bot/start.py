@@ -1,6 +1,6 @@
 import time
 import random
-from pyrogram import filters
+from config import ALIVE_IMG
 from pyrogram.enums import ChatType
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from youtubesearchpython.__future__ import VideosSearch
